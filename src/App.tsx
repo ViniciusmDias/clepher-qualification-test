@@ -2,28 +2,28 @@ import { useState } from 'react';
 import './App.css';
 import { StockData } from './components/StockData'
 import Search from './components/Search';
-
-const companies = [
-  { name: 'Toyota', symbol: 'TM' },
-  { name: 'Volkswagen', symbol: 'VWAGY' },
-  { name: 'Ford', symbol: 'F' }
-];
+import { apiUrl } from './services/api';
+import { companies } from './mocks/companies';
 
 function App() {
   const [timeSeries, setTimeSeries] = useState<Record<string, any> | null>(null);
   const [metaData, setMetaData] = useState<Record<string, any> | null>(null);
   const [companyName, setCompanyName] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const fetchData = async (symbol: string) => {
-    console.log(symbol)
+    setLoading(true)
+
     try {
-      const response = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${process.env.REACT_APP_ALPHA_VANTAGE_API_KEY}`);
+      const response = await fetch(`${apiUrl}/query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${process.env.REACT_APP_ALPHA_VANTAGE_API_KEY}`);
       const result = await response.json();
 
       setTimeSeries(result['Time Series (Daily)']);
       setMetaData(result['Meta Data'])
+      setLoading(false)
     } catch (error) {
       console.log(error)
+      setLoading(false)
     }
   };
 
@@ -48,7 +48,11 @@ function App() {
       </ul>
       <Search onSelect={handleSelect}     setCompanyName={setCompanyName}
       />
-      {timeSeries && metaData && <StockData timeSeries={timeSeries} metaData={metaData} companyName={companyName} />}
+      {loading ? (
+        <h1>Loading...</h1>
+      ) : (
+        timeSeries && metaData && <StockData timeSeries={timeSeries} metaData={metaData} companyName={companyName} />
+      )}
     </div>
   );
 }
