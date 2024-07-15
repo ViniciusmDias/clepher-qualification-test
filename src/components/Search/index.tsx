@@ -57,5 +57,3 @@ export function Search({ onSelect, setCompanyName }: SearchProps){
     </div>
   );
 };
-
-export default Search;

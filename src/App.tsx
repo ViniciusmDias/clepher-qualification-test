@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import './App.css';
 import { StockData } from './components/StockData'
-import Search from './components/Search';
+import { Search } from './components/Search';
 import { apiUrl } from './services/api';
 import { companies } from './mocks/companies';
+import { Loading } from './components/Loading';
 
 function App() {
   const [timeSeries, setTimeSeries] = useState<Record<string, any> | null>(null);
@@ -48,13 +49,15 @@ function App() {
       </ul>
       <Search onSelect={handleSelect}     setCompanyName={setCompanyName}
       />
-      {loading ? (
-        <h1>Loading...</h1>
-      ) : (
+      { loading ? (
+        <>
+          <Loading />
+        </>
+        ) : (
         timeSeries && metaData && <StockData timeSeries={timeSeries} metaData={metaData} companyName={companyName} />
       )}
     </div>
   );
-}
+} 
 
 export default App;

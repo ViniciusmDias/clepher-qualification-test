@@ -20,30 +20,38 @@ export function StockData({ timeSeries, metaData, companyName}: StockDataProps) 
         <p>Last Update: {lastRefreshed}</p>
         <p>TimeZone: {timeZone}</p>
       </div>
-      <table className="table-auto w-full mt-4">
-        <thead>
-          <tr>
-            <th className="px-4 py-2">Date</th>
-            <th className="px-4 py-2">Open</th>
-            <th className="px-4 py-2">High</th>
-            <th className="px-4 py-2">Low</th>
-            <th className="px-4 py-2">Close</th>
-            <th className="px-4 py-2">Volume</th>
-          </tr>
-        </thead>
-        <tbody>
-          {dates.map((date) => (
-            <tr key={date}>
-              <td className="border px-4 py-2">{date}</td>
-              <td className="border px-4 py-2">${timeSeries[date]['1. open']}</td>
-              <td className="border px-4 py-2">${timeSeries[date]['2. high']}</td>
-              <td className="border px-4 py-2">${timeSeries[date]['3. low']}</td>
-              <td className="border px-4 py-2">${timeSeries[date]['4. close']}</td>
-              <td className="border px-4 py-2">{timeSeries[date]['5. volume']}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="flex flex-col overflow-x-auto">
+        <div className="sm:-mx-6 lg:-mx-8">
+          <div className="inline-block min-w-full py-2      sm:px-6 lg:px-8">
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-center text-sm font-light text-surface dark:text-white">
+                <thead className="border-b border-neutral-200 bg-neutral-50 font-medium dark:border-white/10 dark:text-neutral-800">
+                  <tr>
+                    <th scope="col" className=" px-6 py-4">Date</th>
+                    <th scope="col" className=" px-6 py-4">Open</th>
+                    <th scope="col" className=" px-6 py-4">High</th>
+                    <th scope="col" className=" px-6 py-4">Low</th>
+                    <th scope="col" className=" px-6 py-4">Close</th>
+                    <th scope="col" className=" px-6 py-4">Volume</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dates.map((date) => (
+                    <tr  className="border-b border-neutral-200 dark:border-white/10" key={date}>
+                      <td className="whitespace-nowrap  px-6 py-4 font-medium">{date}</td>
+                      <td className="whitespace-nowrap  px-6 py-4 font-medium">${timeSeries[date]['1. open']}</td>
+                      <td className="whitespace-nowrap  px-6 py-4 font-medium">${timeSeries[date]['2. high']}</td>
+                      <td className="whitespace-nowrap  px-6 py-4 font-medium">${timeSeries[date]['3. low']}</td>
+                      <td className="whitespace-nowrap  px-6 py-4 font-medium">${timeSeries[date]['4. close']}</td>
+                      <td className="whitespace-nowrap  px-6 py-4 font-medium">{timeSeries[date]['5. volume']}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
