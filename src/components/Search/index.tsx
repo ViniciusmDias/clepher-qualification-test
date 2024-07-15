@@ -29,13 +29,13 @@ export function Search({ onSelect, setCompanyName }: SearchProps){
   };
 
   return (
-    <div className="mb-4">
+    <div className="mb-4 rounded-t-xl">
       <input
         type="text"
         value={query}
         onChange={handleSearch}
         placeholder="Search for a company..."
-        className="border p-2 w-full"
+        className="border p-2 w-full rounded-lg"
       />
         {results.length > 0 && (
           <ul className="border mt-2">

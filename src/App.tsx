@@ -39,7 +39,7 @@ function App() {
       <ul className="list-disc mb-4">
         <h3 className="text-xl font-bold mb-4">Example of companies to test:</h3>
         {companies.map((company) => (
-          <li key={company.symbol} className="cursor-pointer text-blue-500" 
+          <li key={company.symbol} className="cursor-pointer text-blue-500 list-none" 
           onClick={() => {
             fetchData(company.symbol);setCompanyName(company.name);
           }}>
